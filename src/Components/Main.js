@@ -27,7 +27,10 @@ function Main(props) {
             <div className="container-main__messages">
                 {jsonData.messages.map((message, index) => {
                     return (
-                        <MainMessage key={`message ${index}`} message={message} />
+                        <MainMessage 
+                        key={`message ${index}`} 
+                        message={message}
+                        jsonData={jsonData} />
                     );
                 })}
             </div>
