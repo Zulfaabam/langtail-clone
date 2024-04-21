@@ -1,24 +1,28 @@
-function MainMessage() {
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { RiFileImageLine } from "react-icons/ri";
+
+function MainMessage(props) {
+    const { jsonData, message } = props;
+
     return (
         <div className="container container-main__box container-main-message">
             <div className="main-message__select">
                 <select className="select-input" name="cars" id="cars">
-                    <option value="volvo">Volvo</option>
-                    <option value="saab">Saab</option>
-                    <option value="mercedes">Mercedes</option>
-                    <option value="audi">Audi</option>
+                    <option value="volvo">{message.role}</option>
+                    <option value="saab">User</option>
+                    <option value="mercedes">Assistant</option>
                 </select>
             </div>
             <div className="main-message__text-area">
-                <textarea id="message" name="message" className="text-area-main">
-                "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis prae
+                <textarea id="message" name="message" rows="10" className="text-area-main">
+                    {message.content}
                 </textarea>
-                
+
 
             </div>
             <div className="main-message__buttons">
-                <button className="btn-small"></button>
-                <button className="btn-small"></button>
+                <button className="btn-small"><RiFileImageLine /></button>
+                <button className="btn-small"><RiDeleteBin6Line /></button>
             </div>
         </div>
     )

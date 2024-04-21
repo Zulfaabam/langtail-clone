@@ -1,4 +1,11 @@
-function Banner() {
+import { FaSave } from "react-icons/fa";
+import { TbShare2 } from "react-icons/tb";
+import { HiOutlineDocumentPlus } from "react-icons/hi2";
+
+
+function Banner(props) {
+    const { jsonData } = props;
+
     return (
         <banner className="banner">
             <div className="banner-subsection banner-files">
@@ -15,11 +22,20 @@ function Banner() {
             </div>
             <div className="banner-subsection banner-user">
                 <div className="banner-buttons">
-                    <button className="btn btn-banner">import</button>
-                    <button className="btn btn-banner">save</button>
-                    <button className="btn btn-banner">share</button>
+                    <button className="btn btn-banner">
+                        <HiOutlineDocumentPlus />
+                        <span>Import</span>
+                    </button>
+                    <button className="btn btn-banner">
+                        <FaSave />
+                        <span>Save</span>
+                    </button>
+                    <button className="btn btn-banner">
+                        <TbShare2 />
+                        <span>Share</span>
+                    </button>
                 </div>
-                <div className="banner-"></div>
+                {/* <div className="banner-"></div> */}
             </div>
         </banner>
     )

@@ -5,18 +5,31 @@ import Left from './Components/Left';
 import Main from './Components/Main';
 import Right from './Components/Right';
 import Modal from './Components/Modal';
+import jsonData from '../src/Assets/data.json'
 
 function App() {
   return (
     <div className="App">
-      <Header />
-      <Banner />
+      <Header
+        jsonData={jsonData}
+      />
+      <Banner
+        jsonData={jsonData}
+      />
       <div className="central-content-container">
-        <Left />
-        <Main />
-        <Right />
+        <Left
+          jsonData={jsonData}
+        />
+        <Main
+          jsonData={jsonData}
+        />
+        <Right
+          jsonData={jsonData}
+        />
       </div>
-      <Modal />
+      <Modal
+        jsonData={jsonData}
+      />
     </div>
   );
 }

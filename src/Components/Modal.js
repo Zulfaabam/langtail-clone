@@ -1,4 +1,6 @@
-function Modal() {
+function Modal(props) {
+    const { jsonData } = props;
+
     return (
         <div id="modal" className="modal-container">
             <div className="modal">
@@ -15,7 +17,7 @@ function Modal() {
 
                 <div className="modal-footer">
                     <button className="btn btn-modal">Cancel</button>
-                    <button className="btn btn-modal">Save</button>
+                    <button className="btn btn-modal btn-save">Save</button>
                 </div>
             </div>
         </div>
