@@ -1,5 +1,5 @@
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { RiFileImageLine } from "react-icons/ri";
+// import { RiFileImageLine } from "react-icons/ri";
 
 function MainMessage(props) {
     const { jsonData, message } = props;
