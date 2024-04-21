@@ -2,6 +2,10 @@ function Modal(props) {
     const { jsonData } = props;
     console.log(jsonData.user);
 
+    function handleClickCancel() {
+        document.getElementById('modal').classList.remove("show-modal")
+    }
+
     return (
         <div id="modal" className="modal-container">
             <div className="modal">
@@ -17,7 +21,12 @@ function Modal(props) {
                 </div>
 
                 <div className="modal-footer">
-                    <button className="btn btn-modal">Cancel</button>
+                    <button
+                        className="btn btn-modal"
+                        onClick={handleClickCancel}
+                    >
+                        Cancel
+                    </button>
                     <button className="btn btn-modal btn-save">Save</button>
                 </div>
             </div>

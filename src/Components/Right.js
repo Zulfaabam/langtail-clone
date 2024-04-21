@@ -24,7 +24,7 @@ function Right(props) {
                     <span className="info-slider__span">0.2</span>
                 </div>
                 <div class="slidecontainer">
-                    <input type="range" min="0" max="2" step="0.1" value=".2" id="temperature">
+                    <input type="range" min="0" max="2" step="0.1" id="temperature">
                     </input>
                 </div>
             </div>
@@ -35,7 +35,7 @@ function Right(props) {
                     <span className="info-slider__span">800</span>
                 </div>
                 <div class="slidecontainer">
-                    <input type="range" min="0" max="4096" step="1" value="800" id="max-tokens">
+                    <input type="range" min="0" max="4096" step="1" id="max-tokens">
                     </input>
                 </div>
             </div>
@@ -52,7 +52,7 @@ function Right(props) {
                     <span className="info-slider__span">1</span>
                 </div>
                 <div class="slidecontainer">
-                    <input type="range" min="0" max="1" step=".01" value="1" id="top-p">
+                    <input type="range" min="0" max="1" step=".01" id="top-p">
                     </input>
                 </div>
             </div>
@@ -63,7 +63,7 @@ function Right(props) {
                     <span className="info-slider__span">.5</span>
                 </div>
                 <div class="slidecontainer">
-                    <input type="range" min="0" max="2" step=".1" value=".5" id="presence-penalty">
+                    <input type="range" min="0" max="2" step=".1" id="presence-penalty">
                     </input>
                 </div>
             </div>
@@ -74,7 +74,7 @@ function Right(props) {
                     <span className="info-slider__span">.5</span>
                 </div>
                 <div class="slidecontainer">
-                    <input type="range" min="0" max="1" step=".1" value=".5" id="frequency-penalty">
+                    <input type="range" min="0" max="1" step=".1" id="frequency-penalty">
                     </input>
                 </div>
             </div>

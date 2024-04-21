@@ -9,7 +9,7 @@ function Main(props) {
     return (
         <div className="container container-main">
 
-            <div className="container-main__box container-main__context">
+            {/* <div className="container-main__box container-main__context">
                 <div className="container-main__context-text">
                     <p>Always check the information in the conversation before dicidint the next action.</p>
                     <p>Getting more information is highly recommended.</p>
@@ -21,7 +21,7 @@ function Main(props) {
 
             <div className="container-main__separator">
                 -
-            </div>
+            </div> */}
 
 
             <div className="container-main__messages">

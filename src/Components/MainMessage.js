@@ -22,7 +22,7 @@ function MainMessage(props) {
 
             </div>
             <div className="main-message__buttons">
-                <button className="btn-small"><RiFileImageLine /></button>
+                {/* <button className="btn-small"><RiFileImageLine /></button> */}
                 <button className="btn-small"><RiDeleteBin6Line /></button>
             </div>
         </div>

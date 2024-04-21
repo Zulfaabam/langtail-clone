@@ -219,7 +219,7 @@ h2 {
 }
 
 .container-main__messages {
-  height: calc(100% - 205px);
+  height: calc(100% - 65px);
   overflow-y: scroll;
 }
 
