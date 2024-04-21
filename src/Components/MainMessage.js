@@ -3,6 +3,7 @@ import { RiFileImageLine } from "react-icons/ri";
 
 function MainMessage(props) {
     const { jsonData, message } = props;
+    console.log(jsonData.user);
 
     return (
         <div className="container container-main__box container-main-message">

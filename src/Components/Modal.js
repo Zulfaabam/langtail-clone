@@ -1,5 +1,6 @@
 function Modal(props) {
     const { jsonData } = props;
+    console.log(jsonData.user);
 
     return (
         <div id="modal" className="modal-container">

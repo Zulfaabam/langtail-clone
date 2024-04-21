@@ -1,5 +1,6 @@
 function Left(props) {
     const { jsonData } = props;
+    console.log(jsonData.user);
 
     function handleClick() {
         document.getElementById('modal').classList.toggle("show-modal")

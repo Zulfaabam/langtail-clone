@@ -5,6 +5,7 @@ import { HiOutlineDocumentPlus } from "react-icons/hi2";
 
 function Banner(props) {
     const { jsonData } = props;
+    console.log(jsonData.user);
 
     return (
         <banner className="banner">
