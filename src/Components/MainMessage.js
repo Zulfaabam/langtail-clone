@@ -81,7 +81,7 @@ function MainMessage(props) {
 
             </div>
             <div className="main-message__buttons">
-                {message.role === "system" ?
+                {message.role === "tool" ?
                     <>
                         <button
                             className="btn-small"
