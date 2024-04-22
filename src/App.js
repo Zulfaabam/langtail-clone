@@ -5,7 +5,7 @@ import Left from './Components/Left';
 import Main from './Components/Main';
 import Right from './Components/Right';
 import Modal from './Components/Modal';
-import jsonData from '../src/Assets/data.json'
+import jsonData from '../src/Assets//TestProject/data.json'
 
 function App() {
   return (

@@ -1,10 +1,32 @@
+import { useState } from "react";
 import MainMessage from "./MainMessage"
 import { LuPlusCircle } from "react-icons/lu";
 import { IoSend } from "react-icons/io5";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 
 function Main(props) {
     const { jsonData } = props;
+    const [isSending, setIsSending] = useState(false);
+    const [messages, setMessages] = useState(jsonData.messages);
+    console.log(jsonData.messages)
+    const handleMessageClick = () => {
+        setMessages(prevState => [
+            ...prevState,
+            {
+                name: "New_Name",
+                role: "user",
+                content: ""
+            }
+        ])
+    }
+
+    const handleClickSend = () => {
+        setIsSending(true);
+        setTimeout(() => {
+            setIsSending(false)
+        }, 1500)
+    }
 
     return (
         <div className="container container-main">
@@ -25,25 +47,42 @@ function Main(props) {
 
 
             <div className="container-main__messages">
-                {jsonData.messages.map((message, index) => {
+                {messages.map((message, i) => {
                     return (
-                        <MainMessage 
-                        key={`message ${index}`} 
-                        message={message}
-                        jsonData={jsonData} />
+                        <MainMessage
+                            key={`message ${Math.floor((Math.random() * 1000) + 1)}`}
+                            message={message}
+                            setMessages={setMessages}
+                            i={i} />
                     );
                 })}
             </div>
 
             <div className="container-main__box container-main__controls">
                 <div className="container-main__controls-btns">
-                    <button className="btn btn-main__contrls">
+                    <button
+                        className="btn btn-main__contrls"
+                        onClick={handleMessageClick}
+                    >
                         <LuPlusCircle />
                         <span>Message</span>
                     </button>
-                    <button className="btn btn-main__contrls btn-send">
-                        <IoSend />
-                        <span>Send</span>
+                    <button
+                        className="btn btn-main__contrls btn-send"
+                        onClick={handleClickSend}
+                    >
+                        {isSending ? (
+                            <>
+                                <AiOutlineLoading3Quarters 
+                                className="loading-icon"/>
+                                <span>Sending</span>
+                            </>
+                        ) : (
+                            <>
+                                <IoSend />
+                                <span>Send</span>
+                            </>
+                        )}
                     </button>
                 </div>
                 <div className="container-main__info-box">

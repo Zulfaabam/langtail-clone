@@ -11,10 +11,10 @@ function Right(props) {
                 </div>
             <div className="container-right__select">
                 <h3 className="banner-files__logo">Model</h3>
-                <select className="select-input" name="cars" id="cars">
-                    <option value="volvo">{jsonData.model}</option>
-                    <option value="saab">Chat GPT 4</option>
-                    <option value="mercedes">Chat GPT 3.5 Pus</option>
+                <select className="select-input" name="cars" id="models">
+                    <option value={jsonData.model}>{jsonData.model}</option>
+                    <option value="Chat GPT 4">Chat GPT 4</option>
+                    <option value="Chat GPT 3.5 Plus">Chat GPT 3.5 Plus</option>
                 </select>
             </div>
 

@@ -10,7 +10,7 @@ p {
 :root {
   --ff-primary: "Inter", sans-serif;
   --ff-mono: "Fira Code", monospace;
- 
+
   --clr-emphasis: rgb(79, 70, 229 );
   --clr-emphasis-text: rgb(129, 140, 248);
   --clr-emphasis-hover: rgb(99, 102, 241);
@@ -28,7 +28,6 @@ p {
   --clr-whiter: #FFF;
 }
 
-
 .App {
   height: 100vh;
   background: var(--clr-background)
@@ -37,18 +36,21 @@ p {
 /* ===== CUSTOM SCROLLBARS ===== */
 
 .container-main__messages::-webkit-scrollbar,
-.text-area-main::-webkit-scrollbar {
+.text-area-main::-webkit-scrollbar,
+.code-editor::-webkit-scrollbar {
   width: .6em;
   border-radius: 5px;
 }
- 
+
 .container-main__messages::-webkit-scrollbar-track,
-.text-area-main::-webkit-scrollbar-track {
+.text-area-main::-webkit-scrollbar-track,
+.code-editor::-webkit-scrollbar-track {
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
- 
+
 .container-main__messages::-webkit-scrollbar-thumb,
-.text-area-main::-webkit-scrollbar-thumb {
+.text-area-main::-webkit-scrollbar-thumb,
+.tcode-editor::-webkit-scrollbar-thumb {
   background-color: var(--clr-background-light);
   outline: 1px solid var(--clr-background-light-2);
   border-radius: 5px;
@@ -73,6 +75,10 @@ p {
 .banner-subsection {
   display: flex;
   gap: 20px;
+}
+
+.header-subsection {
+  align-items: center;
 }
 
 .header-select {
@@ -178,9 +184,13 @@ h2 {
   border-bottom: 1px solid var(--clr-border-light);
   padding: 20px 24px;
   display: flex;
-  flex-direction: column;
   gap: 20px;
-  align-items: flex-start;
+  flex-direction: column;
+}
+
+.select-tool {
+  flex-direction: row;
+  align-items: center;
 }
 
 .container-left__tools {
@@ -235,11 +245,11 @@ h2 {
   width: 20%;
 }
 .main-message__text-area {
-  width: 65%;
+  width: 70%;
 }
 .main-message__buttons {
-  width: 15%;
-  display: flex; 
+  width: 10%;
+  display: flex;
   justify-content: flex-start;
   align-items: flex-start;
   gap: 5px;
@@ -253,6 +263,18 @@ h2 {
   height: auto;
   padding: 10px;
   color: var(--clr-white)
+}
+
+.code-editor-container {
+  padding: 5px 0;
+}
+
+.code-editor {
+  min-height: 120px; 
+  height: auto;
+  background-color: var(--clr-dark);
+  border: var(--clr-border-light);
+  border-radius: 5px;
 }
 
 .container-main__controls {
@@ -366,26 +388,45 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  padding: 5px 5px;
+  border-radius: 5px;
 }
 
 .btn-small:hover {
   color: var(--clr-whiter);
+  background-color: var(--clr-background-light);
 }
 
 .btn-modal {
   height: 30px;
 }
 
-.btn-send, 
+.btn-send,
 .btn-save  {
   color: var(--clr-white);
   background-color: var(--clr-emphasis);
   border: none;
 }
 
+.btn-send {
+  width: 101px;
+}
+
 .btn-send:hover {
   background-color: var(--clr-emphasis-hover);
 }
+
+.loading-icon {
+  /* Apply the animation */
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
 
 
 /* ===== INPUTS  ====== */
@@ -405,6 +446,24 @@ h3  {
   border: solid 1px var(--clr-border-light);
   padding: 4px 12px;
   color: var(--clr-white);
+}
+
+.select-input-emphasis {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--clr-emphasis-text);
+  font-size: 12px;
+  border: solid 1px var(--clr-border-light);
+  border-radius: 5px;
+  padding: 3px 9px;
+  background-color: var(--clr-emphasis-alpha);
+  width: 100px;
+}
+
+.select-input-header {
+ background-color: var(--clr-dark);
+ color: var(--clr-gray)
 }
 
 /* Range inputs */
@@ -428,7 +487,7 @@ input[type=range]::-ms-track {
   cursor: pointer;
 
   /* Hides the slider so custom styles can be added */
-  background: transparent; 
+  background: transparent;
   border-color: transparent;
   color: transparent;
 }
@@ -442,7 +501,7 @@ input[type=range]::-webkit-slider-thumb {
   background: var(--clr-background-light);
   cursor: pointer;
   margin-top: -4px;
-  
+
 }
 
 /* All the same stuff for Firefox */
@@ -463,7 +522,7 @@ input[type=range]::-webkit-slider-runnable-track {
   cursor: pointer;
   background: var(--clr-border-light);
   border-radius: 5px;
-  
+
 }
 
 /* input[type=range]:focus::-webkit-slider-runnable-track {
@@ -476,7 +535,7 @@ input[type=range]::-moz-range-track {
   cursor: pointer;
   background: var(--clr-border-light);;
   border-radius: 6px;
-  
+
 }
 
 /* ====== TOGGLE BUTTONS ====== */

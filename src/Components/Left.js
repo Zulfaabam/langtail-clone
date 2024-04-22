@@ -21,13 +21,16 @@ function Left(props) {
                     <p>Send an on-site reuqest to staff</p>
                 </div>
             </div>
-            <div className="container-left__box">
+            <div className="container-left__box select-tool">
                 <button
                     className="btn btn-left"
                     onClick={handleClick}
                 >
                     Tool
                 </button>
+                <select className="select-input select-input-emphasis" name="cars" id="models">
+                    <option value="650 Tokens">650 tokens</option>
+                </select>
             </div>
         </div>
     )
