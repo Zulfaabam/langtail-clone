@@ -1,6 +1,19 @@
+import { useState } from 'react';
+
+import Editor from 'react-simple-code-editor';
+import { highlight, languages } from 'prismjs/components/prism-core';
+import 'prismjs/components/prism-clike';
+import 'prismjs/components/prism-javascript';
+import 'prismjs/components/prism-json';
+import 'prismjs/components/prism-json5';
+import 'prismjs/components/prism-jsonp';
+import 'prismjs/themes/prism.css';
+import 'prismjs/components/prism-json';
+
 function Modal(props) {
     const { jsonData } = props;
-    console.log(jsonData.user);
+    const [code, setCode] = useState(`${JSON.stringify(jsonData.tools[0])}`);
+    console.log(code)
 
     function handleClickCancel() {
         document.getElementById('modal').classList.remove("show-modal")
@@ -10,14 +23,21 @@ function Modal(props) {
         <div id="modal" className="modal-container">
             <div className="modal">
                 <div className="modal-title">
-                    <p className="modal-title-title">Import Conversation</p>
-                    <p className="modal-title-subtitle">Paste JSON of the conversation</p>
+                    <p className="modal-title-title">Edit Function</p>
+                    <p className="modal-title-subtitle">Edit your existing function</p>
                 </div>
 
                 <div className="modal-main">
-                    <textarea id="message" name="message" className="text-area-modal">
-                        "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis prae
-                    </textarea>
+                    <Editor
+                        value={code}
+                        onValueChange={code => setCode(code)}
+                        highlight={code => highlight(code, languages.json)}
+                        padding={10}
+                        style={{
+                            fontFamily: '"Fira code", "Fira Mono", monospace',
+                            fontSize: 14,
+                        }}
+                    />
                 </div>
 
                 <div className="modal-footer">

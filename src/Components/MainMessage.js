@@ -6,17 +6,18 @@ import Editor from 'react-simple-code-editor';
 import { highlight, languages } from 'prismjs/components/prism-core';
 import 'prismjs/components/prism-clike';
 import 'prismjs/components/prism-javascript';
+import 'prismjs/components/prism-json';
+import 'prismjs/components/prism-json5';
+import 'prismjs/components/prism-jsonp';
 import 'prismjs/themes/prism.css';
-
+import 'prismjs/components/prism-json';
 
 // import { RiFileImageLine } from "react-icons/ri";
 
 function MainMessage(props) {
     const { message, setMessages, i } = props;
     const [codeEditorsNum, setCodeEditorsNum] = useState([0]);
-    const [code, setCode] = useState(
-        message.content
-    );
+    const [code, setCode] = useState(message.content);
 
     const handleToolClick = () => {
         setCodeEditorsNum(prevState => [
@@ -47,6 +48,7 @@ function MainMessage(props) {
                 </select>
             </div>
             <div className="main-message__text-area">
+            
                 {message.role === "tool" ?
                     codeEditorsNum.map((editor, i) => {
                         return (
@@ -55,7 +57,7 @@ function MainMessage(props) {
                                     key={`editor ${editor} ${message.content} ${i}`}
                                     value={code}
                                     onValueChange={code => setCode(code)}
-                                    highlight={code => highlight(code, languages.js)}
+                                    highlight={code => highlight(code, languages.json)}
                                     padding={10}
                                     style={{
                                         fontFamily: '"Fira code", "Fira Mono", monospace',

@@ -37,20 +37,23 @@ p {
 
 .container-main__messages::-webkit-scrollbar,
 .text-area-main::-webkit-scrollbar,
-.code-editor::-webkit-scrollbar {
+.code-editor::-webkit-scrollbar,
+.modal-main::-webkit-scrollbar {
   width: .6em;
   border-radius: 5px;
 }
 
 .container-main__messages::-webkit-scrollbar-track,
 .text-area-main::-webkit-scrollbar-track,
-.code-editor::-webkit-scrollbar-track {
+.code-editor::-webkit-scrollbar-track,
+.modal-main::-webkit-scrollbar-track {
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
 
 .container-main__messages::-webkit-scrollbar-thumb,
 .text-area-main::-webkit-scrollbar-thumb,
-.tcode-editor::-webkit-scrollbar-thumb {
+.tcode-editor::-webkit-scrollbar-thumb,
+.modal-main::-webkit-scrollbar-thumb {
   background-color: var(--clr-background-light);
   outline: 1px solid var(--clr-background-light-2);
   border-radius: 5px;
@@ -621,10 +624,16 @@ input:checked + .slider-toggle:before {
 
 .modal-container {
   display: none;
+  
 }
 
 .show-modal {
   display: block;
+}
+
+.modal-main {
+  overflow-y: scroll;
+  margin-bottom: 15px;
 }
 
 .modal-title {
