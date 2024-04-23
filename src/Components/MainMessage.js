@@ -9,7 +9,7 @@ import 'prismjs/components/prism-javascript';
 import 'prismjs/components/prism-json';
 import 'prismjs/components/prism-json5';
 import 'prismjs/components/prism-jsonp';
-import 'prismjs/themes/prism.css';
+import 'prismjs/themes/prism-okaidia.css';
 import 'prismjs/components/prism-json';
 
 // import { RiFileImageLine } from "react-icons/ri";
@@ -47,15 +47,22 @@ function MainMessage(props) {
                     <option value="mercedes">assistant</option>
                 </select>
             </div>
-            <div className="main-message__text-area">
+            <div className="main-message__text-area main-message__text-area-container">
+                
+            <span>{message.name ? message.name : "no name"}</span>
+
+                
             
-                {message.role === "tool" ?
+                {message.role === "tool" || message.role === "assistant" ?
                     codeEditorsNum.map((editor, i) => {
                         return (
                             <div className="code-editor-container">
+                                <textarea id="message" name="message" rows="5" className="text-area-main">
+                            
+                        </textarea>
                                 <Editor
                                     key={`editor ${editor} ${message.content} ${i}`}
-                                    value={code}
+                                    value={code || ''} // Ensure code is initialized
                                     onValueChange={code => setCode(code)}
                                     highlight={code => highlight(code, languages.json)}
                                     padding={10}
@@ -83,7 +90,7 @@ function MainMessage(props) {
 
             </div>
             <div className="main-message__buttons">
-                {message.role === "tool" ?
+                {message.role === "assistant" ?
                     <>
                         <button
                             className="btn-small"

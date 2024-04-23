@@ -9,7 +9,7 @@ function Main(props) {
     const { jsonData } = props;
     const [isSending, setIsSending] = useState(false);
     const [messages, setMessages] = useState(jsonData.messages);
-    console.log(jsonData.messages)
+
     const handleMessageClick = () => {
         setMessages(prevState => [
             ...prevState,

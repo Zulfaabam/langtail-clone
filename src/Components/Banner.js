@@ -7,6 +7,13 @@ function Banner(props) {
     const { jsonData } = props;
     console.log(jsonData.user);
 
+    function handleClickShare() {
+        document.getElementById('modal-share-conversation').classList.toggle("show-modal")
+    }
+    function handleClickImport() {
+        document.getElementById('modal-import-conversation').classList.toggle("show-modal")
+    }
+
     return (
         <banner className="banner">
             <div className="banner-subsection banner-files">
@@ -23,7 +30,9 @@ function Banner(props) {
             </div>
             <div className="banner-subsection banner-user">
                 <div className="banner-buttons">
-                    <button className="btn btn-banner">
+                    <button 
+                        onClick={handleClickImport}
+                        className="btn btn-banner">
                         <HiOutlineDocumentPlus />
                         <span>Import</span>
                     </button>
@@ -31,7 +40,9 @@ function Banner(props) {
                         <FaSave />
                         <span>Save</span>
                     </button>
-                    <button className="btn btn-banner">
+                    <button 
+                        onClick={handleClickShare}
+                        className="btn btn-banner">
                         <TbShare2 />
                         <span>Share</span>
                     </button>

@@ -28,7 +28,28 @@ function App() {
         />
       </div>
       <Modal
-        jsonData={jsonData}
+        key={'key-modal-import-conversation'}
+        modalId={"modal-import-conversation"}
+        content={""}
+        title={"New conversation"}
+        subtitle={"Paste JSON of the conversation"}
+        isTextAreaSandbox={true}
+      />
+      <Modal
+        key={'key-modal-edit-function'}
+        modalId={"modal-edit-function"}
+        content={JSON.stringify(jsonData.tools[0].function)}
+        title={"Edit function"}
+        subtitle={"Edit your existing function"}
+        isTextAreaSandbox={true}
+      />
+      <Modal
+        key={'key-modal-share-conversation'}
+        modalId={"modal-share-conversation"}
+        content={""}
+        title={"Share conversation"}
+        subtitle={"Copy your modified conversation"}
+        isTextAreaSandbox={true}
       />
     </div>
   );

@@ -11,33 +11,40 @@ import 'prismjs/themes/prism.css';
 import 'prismjs/components/prism-json';
 
 function Modal(props) {
-    const { jsonData } = props;
-    const [code, setCode] = useState(`${JSON.stringify(jsonData.tools[0])}`);
-    console.log(code)
+    const { modalId, content, title, subtitle, isTextAreaSandbox } = props;
+    const [code, setCode] = useState(`${content}`);
+    console.log(content)
 
     function handleClickCancel() {
-        document.getElementById('modal').classList.remove("show-modal")
+        document.getElementById(`${modalId}`).classList.remove("show-modal")
     }
 
     return (
-        <div id="modal" className="modal-container">
+        <div id={modalId} className="modal-container">
             <div className="modal">
                 <div className="modal-title">
-                    <p className="modal-title-title">Edit Function</p>
-                    <p className="modal-title-subtitle">Edit your existing function</p>
+                    <p className="modal-title-title">{title}</p>
+                    <p className="modal-title-subtitle">{subtitle}</p>
                 </div>
 
                 <div className="modal-main">
-                    <Editor
-                        value={code}
-                        onValueChange={code => setCode(code)}
-                        highlight={code => highlight(code, languages.json)}
-                        padding={10}
-                        style={{
-                            fontFamily: '"Fira code", "Fira Mono", monospace',
-                            fontSize: 14,
-                        }}
-                    />
+                    {isTextAreaSandbox ?
+                        <Editor
+                            value={code}
+                            onValueChange={code => setCode(code)}
+                            highlight={code => highlight(code, languages.json)}
+                            padding={10}
+                            style={{
+                                fontFamily: '"Fira code", "Fira Mono", monospace',
+                                fontSize: 14,
+                            }}
+                        />
+                        :
+                        <textarea id="message" name="message" rows="10" className="text-area-main">
+                            {content}
+                        </textarea>
+                    }
+
                 </div>
 
                 <div className="modal-footer">
