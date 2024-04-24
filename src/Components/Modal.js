@@ -27,6 +27,7 @@ function Modal(props) {
         } catch (error) {
             console.error('Error parsing JSON:', error);
         }
+        handleClickCancel();
     }
 
     function testJSON(text) {
