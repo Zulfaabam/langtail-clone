@@ -44,6 +44,14 @@ function App() {
         isTextAreaSandbox={true}
       />
       <Modal
+        key={'key-modal-new-function'}
+        modalId={"modal-new-function"}
+        content={""}
+        title={"Write a new function"}
+        subtitle={"Write a new function"}
+        isTextAreaSandbox={true}
+      />
+      <Modal
         key={'key-modal-share-conversation'}
         modalId={"modal-share-conversation"}
         content={""}

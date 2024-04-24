@@ -1,4 +1,5 @@
 import { FaChevronDown } from "react-icons/fa6";
+import { LuPlusCircle } from "react-icons/lu";
 
 
 function Left(props) {
@@ -6,6 +7,10 @@ function Left(props) {
     console.log(jsonData.user);
 
     function handleClick() {
+        document.getElementById('modal-new-function').classList.toggle("show-modal")
+    }
+
+    function handleClickEdit() {
         document.getElementById('modal-edit-function').classList.toggle("show-modal")
     }
 
@@ -15,8 +20,8 @@ function Left(props) {
 
     return (
         <div className="container container-left">
-            <div className="container-left__box">
-                <div className="container-left__tools paragraph-white">
+            <div className="container-left__box container-left-border">
+                <div className="container-left__tools paragraph-white ">
                     <span>(x) Tools</span>
                     <div className="container-main__info-box">
                         650 Tokens
@@ -27,24 +32,30 @@ function Left(props) {
                     />
                 </div>
                 <div id="select-tool" className="select-tool">
-                    <button
-                        className="btn btn-left"
-                        onClick={handleClick}
-                    >
-                        Tool
-                    </button>
+                    {jsonData.tools.map(tool => {
+                        return (
+                            <>
+                                <p className="paragraph-white"
+                                onClick={handleClickEdit}>{tool.function.name}</p>
+                                <p>{tool.function.description}</p>
+                            </>
+
+                        )
+                    })}
+
 
                 </div>
-                {/* <div>
-                    <p className="paragraph-white">create_goal</p>
-                    <p>Category for each different topic in the message. Be as incluse as possible and don't leave
-                        any category missing. Get all the categories that related to the message...
-                    </p>
-                </div>
-                <div>
-                    <p className="paragraph-white">send_onsite_request_to_staff</p>
-                    <p>Send an on-site reuqest to staff</p>
-                </div> */}
+
+
+            </div>
+            <div className="container-left__box container-left-border">
+                <button
+                    className="btn btn-left"
+                    onClick={handleClick}
+                >
+                    <LuPlusCircle />
+                    Tool
+                </button>
             </div>
 
         </div>
