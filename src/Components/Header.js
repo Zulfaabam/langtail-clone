@@ -14,27 +14,23 @@ function Header(props) {
         <header className="header">
             <div className="header-subsection header-files">
                 <div className="header-files__logo">Logo /</div>
-                <div className="header-files__projects header-select">
+                <div className="header-files__projects header-select" style={{ display: 'none' }}>
                    
                     <Select defaultValue={"Project_1"}>
                         <Option value={"Project_1"}>Project 1</Option>
                         <Option value={"Project_2"}>Project 2</Option>
                         <Option value={"Project_3"}>Project 3</Option>
                     </Select>
-                    {/* <div className="header-files__selector">
-                        <LuChevronsUpDown />
-                    </div> */}
+                    
                     /
                 </div>
-                <div className="header-files__prompts header-select">
+                <div className="header-files__prompts header-select" style={{ display: 'none' }}>
                     <Select defaultValue={"Prompt_1"}>
                         <Option value={"Prompt_1"}>Prompt 1</Option>
                         <Option value={"Prompt_2"}>Prompt 2</Option>
                         <Option value={"Prompt_3"}>Prompt 3</Option>
                     </Select>
-                    {/* <div className="header-files__selector">
-                        <LuChevronsUpDown />
-                    </div> */}
+                    
 
                 </div>
             </div>

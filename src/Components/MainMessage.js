@@ -59,8 +59,8 @@ function MainMessage(props) {
             </div>
             <div className="main-message__text-area main-message__text-area-container">
 
-                <span>{message.name ? message.name : "no name"}</span>
-
+                <TextareaAutosize aria-label="empty textarea" placeholder="Empty" defaultValue={message.name}>
+                </TextareaAutosize>
 
 
                 {message.role === "tool" || message.role === "assistant" ?

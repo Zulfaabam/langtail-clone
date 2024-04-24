@@ -11,7 +11,7 @@ import UnfoldMoreRoundedIcon from '@mui/icons-material/UnfoldMoreRounded';
 function Banner(props) {
     const { jsonData } = props;
     console.log(jsonData.user);
-
+    
     function handleClickShare() {
         document.getElementById('modal-share-conversation').classList.toggle("show-modal")
     }
@@ -40,7 +40,7 @@ function Banner(props) {
                         onClick={handleClickImport}
                         className="btn btn-banner">
                         <HiOutlineDocumentPlus />
-                        <span>Import</span>
+                        <span>New</span>
                     </button>
                     <button className="btn btn-banner">
                         <FaSave />
