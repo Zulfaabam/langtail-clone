@@ -11,8 +11,8 @@ import 'prismjs/themes/prism.css';
 import 'prismjs/components/prism-json';
 
 function Modal(props) {
-    const { modalId, content, title, subtitle, isTextAreaSandbox, setJson } = props;
-    const [code, setCode] = useState('');
+    const { modalId, content, title, subtitle, isTextAreaSandbox, setJson, isModalImport } = props;
+    const [code, setCode] = useState(content);
     const [isTextValidJson, setIsTextValidJson] = useState(true);
 
     function handleClickCancel() {
@@ -20,14 +20,16 @@ function Modal(props) {
     }
 
     function handleClickSave() {
-        try {
-            const parsedJson = JSON.parse(code);
-            setJson(parsedJson);
-            
-        } catch (error) {
-            console.error('Error parsing JSON:', error);
+        if (isModalImport) {
+            try {
+                const parsedJson = JSON.parse(code);
+                setJson(parsedJson);
+                
+            } catch (error) {
+                console.error('Error parsing JSON:', error);
+            }
+            handleClickCancel();
         }
-        handleClickCancel();
     }
 
     function testJSON(text) {
@@ -47,6 +49,7 @@ function Modal(props) {
         setIsTextValidJson(testJSON(code));
     }, [code]);
     
+    console.log(content)
 
     return (
         <div id={modalId} className="modal-container">

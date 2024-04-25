@@ -47,15 +47,17 @@ function App() {
         subtitle={"Paste JSON of the conversation"}
         isTextAreaSandbox={true}
         setJson = {setImportedJsonData}
+        isModalImport={true}
       />
       <Modal
         key={`key-modal-edit-function ${importedJsonData.user}`}
         modalId={"modal-edit-function"}
-        content={JSON.stringify(jsonData.tools[0].function, null, 2)}
+        content={JSON.stringify(importedJsonData.tools[0].function, null, 2)}
         title={"Edit function"}
         subtitle={"Edit your existing function"}
         isTextAreaSandbox={true}
         setJson = {setImportedJsonData}
+        isModalImport={false}
       />
       <Modal
         key={`key-modal-new-function ${importedJsonData.user}`}
@@ -65,6 +67,7 @@ function App() {
         subtitle={"Write a new function"}
         isTextAreaSandbox={true}
         setJson = {setImportedJsonData}
+        isModalImport={false}
       />
       <Modal
         key={`key-modal-share-conversation ${importedJsonData.user}`}
@@ -74,6 +77,7 @@ function App() {
         subtitle={"Copy your modified conversation"}
         isTextAreaSandbox={true}
         setJson = {setImportedJsonData}
+        isModalImport={false}
       />
     </div>
   );

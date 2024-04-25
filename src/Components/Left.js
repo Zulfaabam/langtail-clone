@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { FaChevronDown } from "react-icons/fa6";
 import { LuPlusCircle } from "react-icons/lu";
 import { TbMathFunction } from "react-icons/tb";
@@ -8,6 +9,13 @@ import { TextareaAutosize as BaseTextareaAutosize } from '@mui/base/TextareaAuto
 
 function Left(props) {
     const { jsonData } = props;
+    const [selectedFunction, setSelectedFunction] = useState('no function selected');
+    const [tokens, setTokens] = useState(0);
+
+    function handleTokenChange(newTokens) {
+        console.log(`newTokens value: ${newTokens}`)
+        setTokens(newTokens/4)
+    }
 
     function handleClick() {
         document.getElementById('modal-new-function').classList.toggle("show-modal")
@@ -15,6 +23,12 @@ function Left(props) {
 
     function handleClickEdit() {
         document.getElementById('modal-edit-function').classList.toggle("show-modal")
+    }
+
+    function handleSelectFunction(name) {
+        console.log(`clicked select function with name: ${name}`)
+        setSelectedFunction(name);
+
     }
 
     function handleClickTools() {
@@ -27,8 +41,8 @@ function Left(props) {
                 <div className="container-left__tools paragraph-white ">
                     <TbMathFunction/>
                     <span>Tools</span>
-                    <div className="container-main__info-box">
-                        650 Tokens
+                    <div key={`tokens ${tokens}`} className="container-main__info-box">
+                        {tokens} Tokens
                     </div>
                     <FaChevronDown
                         className="icon"
@@ -40,7 +54,12 @@ function Left(props) {
                         return (
                             <>
                                 <p className="paragraph-white"
-                                    onClick={handleClickEdit}>{tool.function.name}</p>
+                                    onClick={() => {
+                                        handleClickEdit();
+                                        handleSelectFunction(tool.function.name);
+                                        handleTokenChange(JSON.stringify(tool.function).length);
+                                        }}>
+                                        {tool.function.name}</p>
                                 <p>{tool.function.description}</p>
                             </>
 
@@ -56,7 +75,8 @@ function Left(props) {
             <div className="container-left__box container-left-border tool-choice-container">
                 <p className="paragraph-white">Tool choice</p>
                 <p>Controls which (if any) function is called by the model</p>
-                <TextareaAutosize aria-label="empty textarea" placeholder="write down your function name">
+                <TextareaAutosize key={selectedFunction} aria-label="empty textarea" defaultValue={selectedFunction}>
+                    
                 </TextareaAutosize>
 
             </div>

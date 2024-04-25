@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MainMessage from "./MainMessage"
 import { LuPlusCircle } from "react-icons/lu";
 import { IoSend } from "react-icons/io5";
@@ -9,6 +9,18 @@ function Main(props) {
     const { jsonData } = props;
     const [isSending, setIsSending] = useState(false);
     const [messages, setMessages] = useState(jsonData.messages);
+    const [tokens, setTokens] = useState(0);
+
+    useEffect(() => {
+        // Calculate tokens whenever jsonData changes
+        const calculateTokens = () => {
+            const tokensCount = JSON.stringify(jsonData).length / 4;
+            setTokens(tokensCount);
+        };
+
+        calculateTokens();
+
+    }, [jsonData]); 
 
     const handleMessageClick = () => {
         setMessages(prevState => [
@@ -85,8 +97,8 @@ function Main(props) {
                         )}
                     </button>
                 </div>
-                <div className="container-main__info-box">
-                    4500 Tokens
+                <div key={`total-tokens-key${tokens}`} className="container-main__info-box">
+                    {tokens} Tokens
                 </div>
 
             </div>
