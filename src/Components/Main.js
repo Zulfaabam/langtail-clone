@@ -1,109 +1,102 @@
 import { useState, useEffect } from "react";
-import MainMessage from "./MainMessage"
+import MainMessage from "./MainMessage";
 import { LuPlusCircle } from "react-icons/lu";
 import { IoSend } from "react-icons/io5";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { useAppContext } from "../context/AppContext";
 
+function Main() {
+  const { state, setState } = useAppContext();
 
-function Main(props) {
-    const { jsonData } = props;
-    const [isSending, setIsSending] = useState(false);
-    const [messages, setMessages] = useState(jsonData.messages);
-    const [tokens, setTokens] = useState(0);
+  console.log("state", state);
 
-    useEffect(() => {
-        // Calculate tokens whenever jsonData changes
-        const calculateTokens = () => {
-            const tokensCount = JSON.stringify(jsonData).length / 4;
-            setTokens(tokensCount);
-        };
+  const { jsonData } = state;
 
-        calculateTokens();
+  const [isSending, setIsSending] = useState(false);
+  const [tokens, setTokens] = useState(0);
 
-    }, [jsonData]); 
+  //   console.log("messages", messages);
 
-    const handleMessageClick = () => {
-        setMessages(prevState => [
-            ...prevState,
-            {
-                name: "New_Name",
-                role: "user",
-                content: ""
-            }
-        ])
-    }
+  useEffect(() => {
+    // Calculate tokens whenever jsonData changes
+    const calculateTokens = () => {
+      const tokensCount = JSON.stringify(jsonData).length / 4;
+      setTokens(tokensCount);
+    };
 
-    const handleClickSend = () => {
-        setIsSending(true);
-        setTimeout(() => {
-            setIsSending(false)
-        }, 1500)
-    }
+    calculateTokens();
+  }, [jsonData]);
 
-    return (
-        <div className="container container-main">
+  const handleMessageClick = () => {
+    setState((prev) => ({
+      ...prev,
+      jsonData: {
+        ...prev.jsonData,
+        messages: [
+          ...prev.jsonData.messages,
+          {
+            name: "New_Name",
+            role: "user",
+            content: "",
+          },
+        ],
+      },
+    }));
+  };
 
-            {/* <div className="container-main__box container-main__context">
-                <div className="container-main__context-text">
-                    <p>Always check the information in the conversation before dicidint the next action.</p>
-                    <p>Getting more information is highly recommended.</p>
-                    <p>Do note the special instruction when setting up a goal.</p>
-                </div>
+  const handleClickSend = () => {
+    console.log("Sending message...", jsonData);
+    setIsSending(true);
+    setTimeout(() => {
+      setIsSending(false);
+    }, 1500);
+  };
 
+  return (
+    <div className="container container-main">
+      <div className="container-main__messages">
+        {jsonData?.messages?.map((message, idx) => {
+          return (
+            <MainMessage key={`message ${idx})}`} message={message} idx={idx} />
+          );
+        })}
+      </div>
 
-            </div>
-
-            <div className="container-main__separator">
-                -
-            </div> */}
-
-
-            <div className="container-main__messages">
-                {messages.map((message, i) => {
-                    return (
-                        <MainMessage
-                            key={`message ${Math.floor((Math.random() * 1000) + 1)}`}
-                            message={message}
-                            setMessages={setMessages}
-                            i={i} />
-                    );
-                })}
-            </div>
-
-            <div className="container-main__box container-main__controls">
-                <div className="container-main__controls-btns">
-                    <button
-                        className="btn btn-main__contrls"
-                        onClick={handleMessageClick}
-                    >
-                        <LuPlusCircle />
-                        <span>Message</span>
-                    </button>
-                    <button
-                        className="btn btn-main__contrls btn-send"
-                        onClick={handleClickSend}
-                    >
-                        {isSending ? (
-                            <>
-                                <AiOutlineLoading3Quarters 
-                                className="loading-icon"/>
-                                <span>Sending</span>
-                            </>
-                        ) : (
-                            <>
-                                <IoSend />
-                                <span>Send</span>
-                            </>
-                        )}
-                    </button>
-                </div>
-                <div key={`total-tokens-key${tokens}`} className="container-main__info-box">
-                    {tokens} Tokens
-                </div>
-
-            </div>
+      <div className="container-main__box container-main__controls">
+        <div className="container-main__controls-btns">
+          <button
+            className="btn btn-main__contrls"
+            onClick={handleMessageClick}
+          >
+            <LuPlusCircle />
+            <span>Message</span>
+          </button>
+          <button
+            className="btn btn-main__contrls btn-send"
+            onClick={handleClickSend}
+          >
+            {isSending ? (
+              <>
+                <AiOutlineLoading3Quarters className="loading-icon" />
+                <span>Sending</span>
+              </>
+            ) : (
+              <>
+                <IoSend />
+                <span>Send</span>
+              </>
+            )}
+          </button>
         </div>
-    )
+        <div
+          key={`total-tokens-key${tokens}`}
+          className="container-main__info-box"
+        >
+          {tokens} Tokens
+        </div>
+      </div>
+    </div>
+  );
 }
 
-export default Main
+export default Main;
