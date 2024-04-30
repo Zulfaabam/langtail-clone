@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FaChevronDown } from "react-icons/fa6";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa6";
 import { LuPlusCircle } from "react-icons/lu";
 import { TbMathFunction } from "react-icons/tb";
 import * as React from "react";
@@ -16,6 +16,7 @@ function Left() {
     "no function selected"
   );
   const [tokens, setTokens] = useState(0);
+  const [isToolOpen, setIsToolOpen] = useState(false);
 
   function handleTokenChange(newTokens) {
     console.log(`newTokens value: ${newTokens}`);
@@ -23,9 +24,7 @@ function Left() {
   }
 
   function handleClick() {
-    document
-      .getElementById("modal-new-function")
-      .classList.toggle("show-modal");
+    document.getElementById("modal-tool").classList.toggle("show-modal");
   }
 
   function handleClickEdit() {
@@ -40,6 +39,7 @@ function Left() {
   }
 
   function handleClickTools() {
+    setIsToolOpen(!isToolOpen);
     document.getElementById("select-tool").classList.toggle("select-tool-show");
   }
 
@@ -52,10 +52,14 @@ function Left() {
           <div key={`tokens ${tokens}`} className="container-main__info-box">
             {tokens} Tokens
           </div>
-          <FaChevronDown className="icon" onClick={handleClickTools} />
+          {isToolOpen ? (
+            <FaChevronUp className="icon" onClick={handleClickTools} />
+          ) : (
+            <FaChevronDown className="icon" onClick={handleClickTools} />
+          )}
         </div>
         <div id="select-tool" className="select-tool">
-          {jsonData.tools.map((tool, idx) => {
+          {jsonData?.tools?.map((tool, idx) => {
             return (
               <div key={idx}>
                 <p

@@ -20,12 +20,11 @@ import "prismjs/components/prism-jsonp";
 import "prismjs/themes/prism-okaidia.css";
 import "prismjs/components/prism-json";
 import { useAppContext } from "../context/AppContext";
+import { blue } from "../utils/consts";
 
 function MainMessage(props) {
   const { message, idx } = props;
-  const { state, setState } = useAppContext();
-
-  const { jsonData } = state;
+  const { setState } = useAppContext();
 
   const [codeEditorsNum, setCodeEditorsNum] = useState([0]);
 
@@ -69,11 +68,28 @@ function MainMessage(props) {
       id={`message ${idx}`}
     >
       <div className="main-message__select">
-        <Select value={message.role}>
+        <Select
+          value={message.role}
+          onChange={(e) => {
+            setState((prev) => {
+              const updatedMessages = [...prev.jsonData.messages];
+              updatedMessages[idx].role = e.target.textContent;
+
+              return {
+                ...prev,
+                jsonData: {
+                  ...prev.jsonData,
+                  messages: updatedMessages,
+                },
+              };
+            });
+          }}
+        >
           <Option value={message.role}>{message.role}</Option>
-          <Option value={"role 2"}>role 2</Option>
-          <Option value={"role 3"}>role 3</Option>
-          <Option value={"role 4"}>role 4</Option>
+          <Option value={"user"}>user</Option>
+          <Option value={"tool"}>tool</Option>
+          <Option value={"assistant"}>assistant</Option>
+          <Option value={"system"}>assistant</Option>
         </Select>
       </div>
       <div className="main-message__text-area main-message__text-area-container">
@@ -165,16 +181,6 @@ const Select = React.forwardRef(function Select(props, ref) {
 
   return <BaseSelect {...props} ref={ref} slots={slots} />;
 });
-
-const blue = {
-  100: "#DAECFF",
-  200: "#99CCF3",
-  400: "#3399FF",
-  500: "#007FFF",
-  600: "#0072E5",
-  700: "#0059B2",
-  900: "#003A75",
-};
 
 const CustomButton = React.forwardRef(function CustomButton(props, ref) {
   const { ownerState, ...other } = props;

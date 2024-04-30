@@ -727,6 +727,12 @@ input:checked + .slider-toggle:before {
   -moz-appearance: textfield;
 }
 
+.btn-send:disabled {
+  background-color: var(--clr-background-light);
+  color: var(--clr-gray);
+  cursor: not-allowed;
+}
+
 /* PRETTY PRINT */
 
 /* Layout */

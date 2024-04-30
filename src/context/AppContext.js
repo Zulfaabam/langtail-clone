@@ -1,5 +1,8 @@
 import { createContext, useContext, useState } from "react";
-import initialJsonData from "../Assets/TestProject/data.json";
+import { fromLocalStorage } from "../utils/localStorage";
+import defaultData from "../Assets/TestProject/data.json";
+
+const initialJsonData = fromLocalStorage("jsonData", defaultData);
 
 const initialState = {
   apiKey: "",
@@ -12,6 +15,7 @@ const initialState = {
     presence_penalty: 0.5,
     frequency_penalty: 0.5,
   },
+  isCompareModalOpen: false,
 };
 
 const AppContext = createContext(initialState);

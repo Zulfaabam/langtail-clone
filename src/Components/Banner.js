@@ -1,5 +1,5 @@
 import { FaSave } from "react-icons/fa";
-import { TbShare2 } from "react-icons/tb";
+import { TbShare2, TbGitCompare } from "react-icons/tb";
 import { HiOutlineDocumentPlus } from "react-icons/hi2";
 import * as React from "react";
 import PropTypes from "prop-types";
@@ -8,9 +8,10 @@ import { Option as BaseOption, optionClasses } from "@mui/base/Option";
 import { styled } from "@mui/system";
 import UnfoldMoreRoundedIcon from "@mui/icons-material/UnfoldMoreRounded";
 import { useAppContext } from "../context/AppContext";
+import { toLocalStorage } from "../utils/localStorage";
 
 function Banner() {
-  const { state } = useAppContext();
+  const { state, setState } = useAppContext();
 
   const { jsonData } = state;
 
@@ -19,10 +20,22 @@ function Banner() {
       .getElementById("modal-share-conversation")
       .classList.toggle("show-modal");
   }
-  function handleClickImport() {
+
+  function handleClickNew() {
     document
-      .getElementById("modal-import-conversation")
+      .getElementById("modal-new-conversation")
       .classList.toggle("show-modal");
+  }
+
+  function handleClickSave() {
+    toLocalStorage("jsonData", jsonData);
+  }
+
+  function handleClickCompare() {
+    setState((prev) => ({
+      ...prev,
+      isCompareModalOpen: true,
+    }));
   }
 
   return (
@@ -40,13 +53,17 @@ function Banner() {
       </div>
       <div className="banner-subsection banner-user">
         <div className="banner-buttons">
-          <button onClick={handleClickImport} className="btn btn-banner">
+          <button onClick={handleClickNew} className="btn btn-banner">
             <HiOutlineDocumentPlus />
             <span>New</span>
           </button>
-          <button className="btn btn-banner">
+          <button className="btn btn-banner" onClick={handleClickSave}>
             <FaSave />
             <span>Save</span>
+          </button>
+          <button onClick={handleClickCompare} className="btn btn-banner">
+            <TbGitCompare />
+            <span>Compare</span>
           </button>
           <button onClick={handleClickShare} className="btn btn-banner">
             <TbShare2 />

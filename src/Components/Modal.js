@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import Editor from "react-simple-code-editor";
 import { highlight, languages } from "prismjs/components/prism-core";
@@ -10,34 +10,34 @@ import "prismjs/components/prism-jsonp";
 import "prismjs/themes/prism.css";
 import "prismjs/components/prism-json";
 import { useAppContext } from "../context/AppContext";
+import { toLocalStorage } from "../utils/localStorage";
 
 function Modal(props) {
-  const {
-    modalId,
-    content,
-    title,
-    subtitle,
-    isTextAreaSandbox,
-    isModalImport,
-  } = props;
+  const { modalId, content, title, subtitle, isTextAreaSandbox, isNewJson } =
+    props;
+
   const [code, setCode] = useState(content);
   const [isTextValidJson, setIsTextValidJson] = useState(true);
 
-  const { state, setState } = useAppContext();
+  const { setState } = useAppContext();
 
-  function handleClickCancel() {
+  const modalRef = useRef(null);
+
+  function handleClose() {
+    setCode("");
     document.getElementById(`${modalId}`).classList.remove("show-modal");
   }
 
   function handleClickSave() {
-    if (isModalImport) {
+    if (isNewJson) {
       try {
         const parsedJson = JSON.parse(code);
         setState((prev) => ({ ...prev, jsonData: parsedJson }));
+        toLocalStorage("jsonData", parsedJson);
       } catch (error) {
         console.error("Error parsing JSON:", error);
       }
-      handleClickCancel();
+      handleClose();
     }
   }
 
@@ -59,7 +59,7 @@ function Modal(props) {
   }, [code]);
 
   return (
-    <div id={modalId} className="modal-container">
+    <div id={modalId} className="modal-container" ref={modalRef}>
       <div className="modal">
         <div className="modal-title">
           <p className="modal-title-title">{title}</p>
@@ -98,7 +98,7 @@ function Modal(props) {
         </div>
 
         <div className="modal-footer">
-          <button className="btn btn-modal" onClick={handleClickCancel}>
+          <button className="btn btn-modal" onClick={handleClose}>
             Cancel
           </button>
           <button className="btn btn-modal btn-save" onClick={handleClickSave}>
