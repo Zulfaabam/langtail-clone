@@ -6,8 +6,6 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useAppContext } from "../context/AppContext";
 import { sendToOpenAI } from "../service/OpenAIService";
 import { useSnackbar } from "notistack";
-import { fromLocalStorage } from "../utils/localStorage";
-const Diff = require("diff");
 
 function Main() {
   const { state, setState } = useAppContext();
@@ -80,54 +78,24 @@ function Main() {
 
         enqueueSnackbar("Message sent successfully", { variant: "success" });
         setIsSending(false);
+
+        const responseMessage = res.response?.choices?.map(
+          (choice) => choice.message
+        );
+
+        setState((prev) => ({
+          ...prev,
+          jsonData: {
+            ...prev.jsonData,
+            messages: [...prev.jsonData.messages, ...responseMessage],
+          },
+        }));
       })
       .catch((err) => {
         enqueueSnackbar(err, { variant: "error" });
         setIsSending(false);
       });
-    // setTimeout(() => {
-    //   setIsSending(false);
-    // }, 1500);
   };
-
-  useEffect(() => {
-    const oldJson = fromLocalStorage("jsonData")?.messages;
-
-    console.log(typeof oldJson);
-
-    console.log(typeof jsonData?.messages);
-
-    const diff = Diff.diffArrays(oldJson, jsonData?.messages);
-
-    // const one = "beep boop";
-    // const other = "beep boob blah";
-
-    // const diff = Diff.diffChars(one, other);
-
-    diff.forEach((part) => {
-      // green for additions, red for deletions
-      // grey for common parts
-      const color = part.added ? "green" : part.removed ? "red" : "grey";
-      console.table(part, color);
-    });
-  }, [jsonData]);
-
-  // function compareStrings(string1, string2) {
-  //   let results = Diff.diffChars(string1, string2);
-
-  //   let output = "";
-  //   results.forEach((item) => {
-  //     if (item.removed) {
-  //       output += `<span style="background-color:yellow">${item.value}</span>`;
-  //     } else if (!item.added) {
-  //       output += `${item.value}`;
-  //     }
-  //   });
-
-  //   return output;
-  // }
-
-  // console.log(compareStrings("beep boop", "beep boob blah"));
 
   return (
     <div className="container container-main">
