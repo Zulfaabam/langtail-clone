@@ -12,8 +12,6 @@ function Main() {
 
   const { enqueueSnackbar } = useSnackbar();
 
-  console.log("state", state);
-
   const { jsonData, apiKey, parameters } = state;
 
   const [isSending, setIsSending] = useState(false);
@@ -58,7 +56,6 @@ function Main() {
       return;
     }
 
-    console.log("Sending message...", { apiKey, jsonData, parameters });
     setIsSending(true);
 
     sendToOpenAI(
@@ -69,7 +66,6 @@ function Main() {
       parameters
     )
       .then((res) => {
-        console.log("Response from OpenAI:", res);
         if (res.error) {
           enqueueSnackbar(res.error?.message, { variant: "error" });
           setIsSending(false);

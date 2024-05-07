@@ -8,17 +8,27 @@ import { Option as BaseOption, optionClasses } from "@mui/base/Option";
 import { styled } from "@mui/system";
 import UnfoldMoreRoundedIcon from "@mui/icons-material/UnfoldMoreRounded";
 import { useAppContext } from "../context/AppContext";
-import { toLocalStorage } from "../utils/localStorage";
+import { fromLocalStorage, toLocalStorage } from "../utils/localStorage";
+import { useSnackbar } from "notistack";
+
+const Diff = require("diff");
 
 function Banner() {
   const { state, setState } = useAppContext();
 
   const { jsonData } = state;
 
+  const { enqueueSnackbar } = useSnackbar();
+
   function handleClickShare() {
-    document
-      .getElementById("modal-share-conversation")
-      .classList.toggle("show-modal");
+    // document
+    //   .getElementById("modal-share-conversation")
+    //   .classList.toggle("show-modal");
+    const stringifiedJson = JSON.stringify(jsonData);
+
+    navigator.clipboard.writeText(stringifiedJson);
+
+    enqueueSnackbar("JSON Copied!", { variant: "success" });
   }
 
   function handleClickNew() {
@@ -29,13 +39,31 @@ function Banner() {
 
   function handleClickSave() {
     toLocalStorage("jsonData", jsonData);
+    enqueueSnackbar("Saved to Local Storage!", { variant: "success" });
   }
 
   function handleClickCompare() {
-    setState((prev) => ({
-      ...prev,
-      isCompareModalOpen: true,
-    }));
+    const oldMessages = fromLocalStorage("jsonData")?.messages;
+
+    const diff = Diff.diffJson(oldMessages, jsonData.messages);
+
+    let output = "";
+    let removed = [];
+    let added = [];
+
+    diff.forEach((item) => {
+      // green for additions, red for deletions
+      // grey for common parts
+      const color = item.added ? "green" : item.removed ? "red" : "grey";
+
+      if (color === "red") {
+        removed.push(item.value);
+      }
+
+      if (color === "green") {
+        added.push(item.value);
+      }
+    });
   }
 
   return (
