@@ -1,15 +1,6 @@
 import OpenAI from "openai";
 
 async function sendToOpenAI(apiKey, model, messages, tools, parameters) {
-  // const {
-  //   temperature,
-  //   max_tokens,
-  //   stop,
-  //   top_p,
-  //   presence_penalty,
-  //   frequency_penalty,
-  // } = parameters;
-
   let response, error;
 
   const openai = new OpenAI({
