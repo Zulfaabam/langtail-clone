@@ -1,109 +1,144 @@
 import { useState, useEffect } from "react";
-import MainMessage from "./MainMessage"
+import MainMessage from "./MainMessage";
 import { LuPlusCircle } from "react-icons/lu";
 import { IoSend } from "react-icons/io5";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { useAppContext } from "../context/AppContext";
+import { sendToOpenAI } from "../service/OpenAIService";
+import { useSnackbar } from "notistack";
 
+function Main() {
+  const { state, setState } = useAppContext();
 
-function Main(props) {
-    const { jsonData } = props;
-    const [isSending, setIsSending] = useState(false);
-    const [messages, setMessages] = useState(jsonData.messages);
-    const [tokens, setTokens] = useState(0);
+  const { enqueueSnackbar } = useSnackbar();
 
-    useEffect(() => {
-        // Calculate tokens whenever jsonData changes
-        const calculateTokens = () => {
-            const tokensCount = JSON.stringify(jsonData).length / 4;
-            setTokens(tokensCount);
-        };
+  const { jsonData, apiKey, parameters } = state;
 
-        calculateTokens();
+  const [isSending, setIsSending] = useState(false);
+  const [tokens, setTokens] = useState(0);
 
-    }, [jsonData]); 
+  useEffect(() => {
+    // Calculate tokens whenever jsonData changes
+    const calculateTokens = () => {
+      const tokensCount = JSON.stringify(jsonData).length / 4;
+      setTokens(tokensCount);
+    };
 
-    const handleMessageClick = () => {
-        setMessages(prevState => [
-            ...prevState,
-            {
-                name: "New_Name",
-                role: "user",
-                content: ""
-            }
-        ])
+    calculateTokens();
+  }, [jsonData]);
+
+  const handleMessageClick = () => {
+    setState((prev) => ({
+      ...prev,
+      jsonData: {
+        ...prev.jsonData,
+        messages: [
+          ...prev.jsonData.messages,
+          {
+            name: "New_Name",
+            role: "user",
+            content: "",
+          },
+        ],
+      },
+    }));
+  };
+
+  const handleClickSend = () => {
+    if (!apiKey) return;
+
+    if (
+      jsonData.model === "" ||
+      jsonData.model === "Select model" ||
+      !jsonData.model
+    ) {
+      alert("Please select a model");
+      return;
     }
 
-    const handleClickSend = () => {
-        setIsSending(true);
-        setTimeout(() => {
-            setIsSending(false)
-        }, 1500)
-    }
+    setIsSending(true);
 
-    return (
-        <div className="container container-main">
-
-            {/* <div className="container-main__box container-main__context">
-                <div className="container-main__context-text">
-                    <p>Always check the information in the conversation before dicidint the next action.</p>
-                    <p>Getting more information is highly recommended.</p>
-                    <p>Do note the special instruction when setting up a goal.</p>
-                </div>
-
-
-            </div>
-
-            <div className="container-main__separator">
-                -
-            </div> */}
-
-
-            <div className="container-main__messages">
-                {messages.map((message, i) => {
-                    return (
-                        <MainMessage
-                            key={`message ${Math.floor((Math.random() * 1000) + 1)}`}
-                            message={message}
-                            setMessages={setMessages}
-                            i={i} />
-                    );
-                })}
-            </div>
-
-            <div className="container-main__box container-main__controls">
-                <div className="container-main__controls-btns">
-                    <button
-                        className="btn btn-main__contrls"
-                        onClick={handleMessageClick}
-                    >
-                        <LuPlusCircle />
-                        <span>Message</span>
-                    </button>
-                    <button
-                        className="btn btn-main__contrls btn-send"
-                        onClick={handleClickSend}
-                    >
-                        {isSending ? (
-                            <>
-                                <AiOutlineLoading3Quarters 
-                                className="loading-icon"/>
-                                <span>Sending</span>
-                            </>
-                        ) : (
-                            <>
-                                <IoSend />
-                                <span>Send</span>
-                            </>
-                        )}
-                    </button>
-                </div>
-                <div key={`total-tokens-key${tokens}`} className="container-main__info-box">
-                    {tokens} Tokens
-                </div>
-
-            </div>
-        </div>
+    sendToOpenAI(
+      apiKey,
+      jsonData.model,
+      jsonData.messages,
+      jsonData.tools,
+      parameters
     )
+      .then((res) => {
+        if (res.error) {
+          enqueueSnackbar(res.error?.message, { variant: "error" });
+          setIsSending(false);
+          return;
+        }
+
+        enqueueSnackbar("Message sent successfully", { variant: "success" });
+        setIsSending(false);
+
+        const responseMessage = res.response?.choices?.map(
+          (choice) => choice.message
+        );
+
+        setState((prev) => ({
+          ...prev,
+          jsonData: {
+            ...prev.jsonData,
+            messages: [...prev.jsonData.messages, ...responseMessage],
+          },
+        }));
+      })
+      .catch((err) => {
+        enqueueSnackbar(err, { variant: "error" });
+        setIsSending(false);
+      });
+  };
+
+  return (
+    <div className="container container-main">
+      <div className="container-main__messages">
+        {jsonData?.messages?.map((message, idx) => {
+          return (
+            <MainMessage key={`message ${idx})}`} message={message} idx={idx} />
+          );
+        })}
+      </div>
+
+      <div className="container-main__box container-main__controls">
+        <div className="container-main__controls-btns">
+          <button
+            className="btn btn-main__contrls"
+            onClick={handleMessageClick}
+          >
+            <LuPlusCircle />
+            <span>Message</span>
+          </button>
+          <button
+            className="btn btn-main__contrls btn-send"
+            onClick={handleClickSend}
+            disabled={isSending || !apiKey}
+          >
+            {isSending ? (
+              <>
+                <AiOutlineLoading3Quarters className="loading-icon" />
+                <span>Sending</span>
+              </>
+            ) : (
+              <>
+                <IoSend />
+                <span>Send</span>
+              </>
+            )}
+          </button>
+        </div>
+        <div
+          key={`total-tokens-key${tokens}`}
+          className="container-main__info-box"
+        >
+          {tokens} Tokens
+        </div>
+      </div>
+    </div>
+  );
 }
 
-export default Main
+export default Main;

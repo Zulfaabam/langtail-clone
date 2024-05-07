@@ -15,27 +15,27 @@ body {
   --ff-primary: "Inter", sans-serif;
   --ff-mono: "Fira Code", monospace;
 
-  --clr-emphasis: rgb(79, 70, 229 );
+  --clr-emphasis: rgb(79, 70, 229);
   --clr-emphasis-text: rgb(129, 140, 248);
   --clr-emphasis-hover: rgb(99, 102, 241);
-  --clr-emphasis-alpha: #818CF81A;
+  --clr-emphasis-alpha: #818cf81a;
   --clr-background: rgb(17, 24, 39);
-  --clr-background-hover: rgb(55, 65, 81, .7) ;
+  --clr-background-hover: rgb(55, 65, 81, 0.7);
   --clr-background-light: #1d283a;
   --clr-dark: #000;
   --clr-border: #1d283a;
   --clr-border-light: rgba(255, 255, 255, 0.1);
-  --clr-border-light-2: rgba(55, 65, 81, .2);
+  --clr-border-light-2: rgba(55, 65, 81, 0.2);
 
-  --clr-gray: #6B7280;
+  --clr-gray: #6b7280;
   --clr-light-gray: #a2a8b4;
-  --clr-white: #E1E7EF;
-  --clr-whiter: #FFF;
+  --clr-white: #e1e7ef;
+  --clr-whiter: #fff;
 }
 
 .App {
   height: 100vh;
-  background: var(--clr-background)
+  background: var(--clr-background);
 }
 
 /* ===== CUSTOM SCROLLBARS ===== */
@@ -44,7 +44,7 @@ body {
 .text-area-main::-webkit-scrollbar,
 .code-editor::-webkit-scrollbar,
 .modal-main::-webkit-scrollbar {
-  width: .6em;
+  width: 0.6em;
   border-radius: 5px;
 }
 
@@ -159,13 +159,12 @@ h2 {
   justify-content: flex-end;
 }
 
-
 /* ===== CENTRAL CONTENT CONTAINERS ===== */
 
 .central-content-container {
   display: flex;
   width: 100%;
-  height: calc(100vh - 107px)
+  height: calc(100vh - 107px);
 }
 
 .container {
@@ -181,8 +180,6 @@ h2 {
   padding-bottom: 5px;
   cursor: pointer;
 }
-
-
 
 /* ===== LEFT ===== */
 .container-left {
@@ -202,7 +199,7 @@ h2 {
   border-bottom: solid 1px var(--clr-border-light);
 }
 
-.tool-choice-container{
+.tool-choice-container {
   gap: 10px;
 }
 
@@ -227,7 +224,7 @@ h2 {
   border-right: 1px solid var(--clr-border-light);
   display: flex;
   flex-direction: column;
-  color: var(--clr-gray)
+  color: var(--clr-gray);
 }
 
 .container-main__box {
@@ -247,7 +244,7 @@ h2 {
   height: 60px;
   text-align: center;
   display: flex;
-  justify-content:center;
+  justify-content: center;
   align-items: center;
   font-size: 35px;
 }
@@ -317,7 +314,7 @@ pre {
 }
 
 .code-editor {
-  min-height: 120px; 
+  min-height: 120px;
   height: auto;
   background-color: var(--clr-dark);
   border: var(--clr-border-light);
@@ -375,15 +372,15 @@ pre {
 }
 
 .container-right__slider {
-  display:flex;
+  display: flex;
   flex-direction: column;
 }
 
 .container-right__slider-title {
-    display:flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .info-slider__span {
@@ -453,7 +450,7 @@ pre {
 }
 
 .btn-send,
-.btn-save  {
+.btn-save {
   color: var(--clr-white);
   background-color: var(--clr-emphasis);
   border: none;
@@ -473,16 +470,17 @@ pre {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
-
-
-
 
 /* ===== INPUTS  ====== */
 
-h3  {
+h3 {
   margin: 0;
   padding: 0;
   font-size: 12px;
@@ -513,27 +511,27 @@ h3  {
 }
 
 .select-input-header {
- background-color: var(--clr-dark);
- color: var(--clr-gray)
+  background-color: var(--clr-dark);
+  color: var(--clr-gray);
 }
 
 /* Range inputs */
 
-input[type=range] {
+input[type="range"] {
   -webkit-appearance: none; /* Hides the slider so that custom slider can be made */
   width: 100%; /* Specific width is required for Firefox. */
   background: transparent; /* Otherwise white in Chrome */
 }
 
-input[type=range]::-webkit-slider-thumb {
+input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
 }
 
-input[type=range]:focus {
+input[type="range"]:focus {
   outline: none; /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */
 }
 
-input[type=range]::-ms-track {
+input[type="range"]::-ms-track {
   width: 100%;
   cursor: pointer;
 
@@ -543,7 +541,7 @@ input[type=range]::-ms-track {
   color: transparent;
 }
 
-input[type=range]::-webkit-slider-thumb {
+input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   border: 1px solid var(--clr-gray);
   height: 16px;
@@ -552,11 +550,10 @@ input[type=range]::-webkit-slider-thumb {
   background: var(--clr-background-light);
   cursor: pointer;
   margin-top: -4px;
-
 }
 
 /* All the same stuff for Firefox */
-input[type=range]::-moz-range-thumb {
+input[type="range"]::-moz-range-thumb {
   border: 1px solid var(--clr-border);
   height: 16px;
   width: 16px;
@@ -567,26 +564,24 @@ input[type=range]::-moz-range-thumb {
 
 /* Styling the track */
 
-input[type=range]::-webkit-slider-runnable-track {
+input[type="range"]::-webkit-slider-runnable-track {
   width: 100%;
   height: 8.4px;
   cursor: pointer;
   background: var(--clr-border-light);
   border-radius: 5px;
-
 }
 
 /* input[type=range]:focus::-webkit-slider-runnable-track {
   background: #367ebd;
 } */
 
-input[type=range]::-moz-range-track {
+input[type="range"]::-moz-range-track {
   width: 100%;
   height: 8.4px;
   cursor: pointer;
-  background: var(--clr-border-light);;
+  background: var(--clr-border-light);
   border-radius: 6px;
-
 }
 
 /* ====== TOGGLE BUTTONS ====== */
@@ -615,8 +610,8 @@ input[type=range]::-moz-range-track {
   right: 0;
   bottom: 0;
   background-color: var(--clr-background-light);
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
 .slider-toggle:before {
@@ -627,8 +622,8 @@ input[type=range]::-moz-range-track {
   left: 4px;
   bottom: 2px;
   background-color: var(--clr-dark);
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
 input:checked + .slider-toggle {
@@ -650,7 +645,6 @@ input:checked + .slider-toggle:before {
   border-radius: 50%;
 }
 
-
 /* ===== MODAL ===== */
 
 .modal {
@@ -658,7 +652,7 @@ input:checked + .slider-toggle:before {
   position: fixed;
   height: 80vh;
   width: 800px;
-  background:var(--clr-dark);
+  background: var(--clr-dark);
   z-index: 10;
   top: 50%;
   left: 50%;
@@ -672,7 +666,6 @@ input:checked + .slider-toggle:before {
 
 .modal-container {
   display: none;
-  
 }
 
 .show-modal {
@@ -695,12 +688,11 @@ input:checked + .slider-toggle:before {
 .modal-title-title {
   font-size: 14px;
   font-weight: 600;
-
 }
 
 .modal-title-subtitle {
   font-size: 12px;
-  color: var(--clr-gray)
+  color: var(--clr-gray);
 }
 
 .modal-main {
@@ -729,30 +721,107 @@ input:checked + .slider-toggle:before {
   color: rgb(240, 162, 90);
 }
 
+.no-arrow-input {
+  -webkit-appearance: none;
+  margin: 0;
+  -moz-appearance: textfield;
+}
+
+.btn-send:disabled {
+  background-color: var(--clr-background-light);
+  color: var(--clr-gray);
+  cursor: not-allowed;
+}
+
 /* PRETTY PRINT */
 
 /* Layout */
-.json-container           { font-family: menlo, consolas, monospace; font-style: normal; font-weight: bold; line-height: 1.4em; font-size: 0.9rem; transition: background-color 400ms; }
-a.json-link               { text-decoration: none; border-bottom: 1px solid; outline: none; }
-a.json-link:hover         { background-color: transparent; outline: none; }
-ol.json-lines             { white-space: normal; padding-inline-start: 3em; margin: 0px; }
-ol.json-lines >li         { white-space: pre; text-indent: 0.7em; line-height: 1.5em; padding: 0px; }
-ol.json-lines >li::marker { font-family: system-ui, sans-serif; font-weight: normal; }
-.json-key, .json-string, .json-number, .json-boolean, .json-null, .json-mark, a.json-link, ol.json-lines >li { transition: all 400ms; }
+.json-container {
+  font-family: menlo, consolas, monospace;
+  font-style: normal;
+  font-weight: bold;
+  line-height: 1.4em;
+  font-size: 0.9rem;
+  transition: background-color 400ms;
+}
+a.json-link {
+  text-decoration: none;
+  border-bottom: 1px solid;
+  outline: none;
+}
+a.json-link:hover {
+  background-color: transparent;
+  outline: none;
+}
+ol.json-lines {
+  white-space: normal;
+  padding-inline-start: 3em;
+  margin: 0px;
+}
+ol.json-lines > li {
+  white-space: pre;
+  text-indent: 0.7em;
+  line-height: 1.5em;
+  padding: 0px;
+}
+ol.json-lines > li::marker {
+  font-family: system-ui, sans-serif;
+  font-weight: normal;
+}
+.json-key,
+.json-string,
+.json-number,
+.json-boolean,
+.json-null,
+.json-mark,
+a.json-link,
+ol.json-lines > li {
+  transition: all 400ms;
+}
 
 /* Dark Mode */
-.json-container                   { background-color: black; }
-.json-key                         { color: indianred; }
-.json-string                      { color: khaki; }
-.json-number                      { color: deepskyblue; }
-.json-boolean                     { color: mediumseagreen; }
-.json-null                        { color: darkorange; }
-.json-mark                        { color: silver; }
-a.json-link                       { color: mediumorchid; }
-a.json-link:visited               { color: slategray; }
-a.json-link:hover                 { color: violet; }
-a.json-link:active                { color: slategray; }
-ol.json-lines >li::marker         { color: silver; }
-ol.json-lines >li:nth-child(odd)  { background-color: #222222; }
-ol.json-lines >li:nth-child(even) { background-color: #161616; }
-ol.json-lines >li:hover           { background-color: dimgray; }
+.json-container {
+  background-color: black;
+}
+.json-key {
+  color: indianred;
+}
+.json-string {
+  color: khaki;
+}
+.json-number {
+  color: deepskyblue;
+}
+.json-boolean {
+  color: mediumseagreen;
+}
+.json-null {
+  color: darkorange;
+}
+.json-mark {
+  color: silver;
+}
+a.json-link {
+  color: mediumorchid;
+}
+a.json-link:visited {
+  color: slategray;
+}
+a.json-link:hover {
+  color: violet;
+}
+a.json-link:active {
+  color: slategray;
+}
+ol.json-lines > li::marker {
+  color: silver;
+}
+ol.json-lines > li:nth-child(odd) {
+  background-color: #222222;
+}
+ol.json-lines > li:nth-child(even) {
+  background-color: #161616;
+}
+ol.json-lines > li:hover {
+  background-color: dimgray;
+}

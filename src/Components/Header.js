@@ -1,91 +1,106 @@
 // import { LuChevronsUpDown } from "react-icons/lu";
 import { FaFingerprint } from "react-icons/fa";
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import { Select as BaseSelect, selectClasses } from '@mui/base/Select';
-import { Option as BaseOption, optionClasses } from '@mui/base/Option';
-import { styled } from '@mui/system';
-import UnfoldMoreRoundedIcon from '@mui/icons-material/UnfoldMoreRounded';
+import * as React from "react";
+import PropTypes from "prop-types";
+import { Select as BaseSelect, selectClasses } from "@mui/base/Select";
+import { Option as BaseOption, optionClasses } from "@mui/base/Option";
+import { styled } from "@mui/system";
+import UnfoldMoreRoundedIcon from "@mui/icons-material/UnfoldMoreRounded";
+import { useAppContext } from "../context/AppContext";
 
-function Header(props) {
-    const { jsonData } = props;
+function Header() {
+  const { state, setState } = useAppContext();
 
-    return (
-        <header className="header">
-            <div className="header-subsection header-files">
-                <div className="header-files__logo">Logo /</div>
-                <div className="header-files__projects header-select" style={{ display: 'none' }}>
-                   
-                    <Select defaultValue={"Project_1"}>
-                        <Option value={"Project_1"}>Project 1</Option>
-                        <Option value={"Project_2"}>Project 2</Option>
-                        <Option value={"Project_3"}>Project 3</Option>
-                    </Select>
-                    
-                    /
-                </div>
-                <div className="header-files__prompts header-select" style={{ display: 'none' }}>
-                    <Select defaultValue={"Prompt_1"}>
-                        <Option value={"Prompt_1"}>Prompt 1</Option>
-                        <Option value={"Prompt_2"}>Prompt 2</Option>
-                        <Option value={"Prompt_3"}>Prompt 3</Option>
-                    </Select>
-                    
+  const { jsonData, apiKey } = state;
 
-                </div>
-            </div>
-            <div className="header-subsection header-user">
-                <div className="header-user__API">
-                    <span className="icon icon-fingerprint"><FaFingerprint /></span>
-                    <input className="header-user__input" name="API-key" id="API-key" placeholder="Enter API key here"></input>
-                </div>
-                <div className="header-user__">{jsonData.user}</div>
-            </div>
-        </header>
-    )
+  return (
+    <header className="header">
+      <div className="header-subsection header-files">
+        <div className="header-files__logo">Logo /</div>
+        <div
+          className="header-files__projects header-select"
+          style={{ display: "none" }}
+        >
+          <Select defaultValue={"Project_1"}>
+            <Option value={"Project_1"}>Project 1</Option>
+            <Option value={"Project_2"}>Project 2</Option>
+            <Option value={"Project_3"}>Project 3</Option>
+          </Select>
+          /
+        </div>
+        <div
+          className="header-files__prompts header-select"
+          style={{ display: "none" }}
+        >
+          <Select defaultValue={"Prompt_1"}>
+            <Option value={"Prompt_1"}>Prompt 1</Option>
+            <Option value={"Prompt_2"}>Prompt 2</Option>
+            <Option value={"Prompt_3"}>Prompt 3</Option>
+          </Select>
+        </div>
+      </div>
+      <div className="header-subsection header-user">
+        <div className="header-user__API">
+          <span className="icon icon-fingerprint">
+            <FaFingerprint />
+          </span>
+          <input
+            className="header-user__input"
+            name="API-key"
+            id="API-key"
+            placeholder="Enter API key here"
+            value={apiKey}
+            onChange={(e) => {
+              setState((prev) => ({ ...prev, apiKey: e.target.value }));
+            }}
+          />
+        </div>
+        <div className="header-user__">{jsonData.user}</div>
+      </div>
+    </header>
+  );
 }
 
-export default Header
+export default Header;
 
 const blue = {
-    100: '#DAECFF',
-    200: '#99CCF3',
-    400: '#3399FF',
-    500: '#007FFF',
-    600: '#0072E5',
-    700: '#0059B2',
-    900: '#003A75',
+  100: "#DAECFF",
+  200: "#99CCF3",
+  400: "#3399FF",
+  500: "#007FFF",
+  600: "#0072E5",
+  700: "#0059B2",
+  900: "#003A75",
 };
 
-
 const Select = React.forwardRef(function Select(props, ref) {
-    const slots = {
-        root: CustomButton,
-        listbox: Listbox,
-        popup: Popup,
-        ...props.slots,
-    };
+  const slots = {
+    root: CustomButton,
+    listbox: Listbox,
+    popup: Popup,
+    ...props.slots,
+  };
 
-    return <BaseSelect {...props} ref={ref} slots={slots} />;
+  return <BaseSelect {...props} ref={ref} slots={slots} />;
 });
 
 const CustomButton = React.forwardRef(function CustomButton(props, ref) {
-    const { ownerState, ...other } = props;
-    return (
-        <StyledButton type="button" {...other} ref={ref}>
-            {other.children}
-            <UnfoldMoreRoundedIcon />
-        </StyledButton>
-    );
+  const { ownerState, ...other } = props;
+  return (
+    <StyledButton type="button" {...other} ref={ref}>
+      {other.children}
+      <UnfoldMoreRoundedIcon />
+    </StyledButton>
+  );
 });
 
 CustomButton.propTypes = {
-    children: PropTypes.node,
-    ownerState: PropTypes.object.isRequired,
+  children: PropTypes.node,
+  ownerState: PropTypes.object.isRequired,
 };
 
-const StyledButton = styled('button', { shouldForwardProp: () => true })(
-    ({ theme }) => `
+const StyledButton = styled("button", { shouldForwardProp: () => true })(
+  ({ theme }) => `
     position: relative;
     font-family: 'IBM Plex Sans', sans-serif;
     font-size: 0.875rem;
@@ -111,7 +126,9 @@ const StyledButton = styled('button', { shouldForwardProp: () => true })(
     &.${selectClasses.focusVisible} {
       outline: 0;
       border-color: ${blue[400]};
-      box-shadow: 0 0 0 3px ${theme.palette.mode === 'dark' ? blue[700] : blue[200]};
+      box-shadow: 0 0 0 3px ${
+        theme.palette.mode === "dark" ? blue[700] : blue[200]
+      };
     }
   
     & > svg {
@@ -121,11 +138,11 @@ const StyledButton = styled('button', { shouldForwardProp: () => true })(
       top: 0;
       right: 10px;
     }
-    `,
+    `
 );
 
-const Listbox = styled('ul')(
-    ({ theme }) => `
+const Listbox = styled("ul")(
+  ({ theme }) => `
     font-size: 0.875rem;
     box-sizing: border-box;
     padding: 6px;
@@ -137,11 +154,11 @@ const Listbox = styled('ul')(
     background: var(--clr-dark);
     border: 1px solid var(--clr-border-light);
     color: var(--clr-white)
-    `,
+    `
 );
 
 const Option = styled(BaseOption)(
-    ({ theme }) => `
+  ({ theme }) => `
     list-style: none;
     padding: 8px;
     border-radius: 5px;
@@ -161,7 +178,9 @@ const Option = styled(BaseOption)(
     }
   
     &:focus-visible {
-      outline: 3px solid ${theme.palette.mode === 'dark' ? blue[600] : blue[200]};
+      outline: 3px solid ${
+        theme.palette.mode === "dark" ? blue[600] : blue[200]
+      };
     }
   
     &.${optionClasses.highlighted}.${optionClasses.selected} {
@@ -175,9 +194,9 @@ const Option = styled(BaseOption)(
     &:hover:not(.${optionClasses.disabled}) {
         background-color: var(--clr-background-hover);
     }
-    `,
+    `
 );
 
-const Popup = styled('div')`
-    z-index: 1;
-  `;
+const Popup = styled("div")`
+  z-index: 1;
+`;
